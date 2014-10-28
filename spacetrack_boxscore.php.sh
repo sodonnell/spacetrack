@@ -3,7 +3,7 @@
 /** simple spacetrack API client script example using PHP/CLI scripting */
 require 'spacetrack.php';
 
-$spacetrack = new spacetrack();
+$spacetrack = spacetrack::getInstance();
 
 $api='boxscore';
 $postdata=null;
