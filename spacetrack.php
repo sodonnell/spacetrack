@@ -29,7 +29,7 @@ class spacetrack
 
 	private $error = null;
 
-	public function __construct()
+	protected function __construct()
 	{
 		$this->curl = @curl_init();
 		
@@ -65,6 +65,16 @@ class spacetrack
 		}
 		
 		return;
+	}
+	
+	public static function getInstance()
+	{
+		static $instance = null;
+		if (null === $instance) 
+		{
+			$instance = new static();
+		}
+		return $instance;
 	}
 
 	public function api_call($api_key,$postdata=null,$decode=true)
