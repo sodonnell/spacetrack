@@ -8,7 +8,7 @@
  * 
  * This software was developed for authorized space-track.org
  * usage only. While it's considered "open source", it still 
- * requires authorization by the USSTRATCOM 
+ * requires authorization by the USSTRATCOM.
  * 
  * @author Sean O'Donnell <sean@seanodonnell.com>
  * 
@@ -19,7 +19,7 @@ class spacetrack
 	private $auth_username = "????myusername????";
 	private $auth_password = "????mypassword????";
 
-	private $cookie = 'spacetrack_cookie.txt';
+	private $cookie = '/tmp/spacetrack_cookie.txt';
 	
 	private $api; 
 	private $curl;
