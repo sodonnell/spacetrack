@@ -7,7 +7,7 @@ The design concept for this class is to create a universal (PHP) object specific
 
 This class supports the bandwidth-throttling suggested by the API documentation (100k/sec transfers), to minimize service bandwidth spikes. 
 
-Ideally, you should be able to create scripts to interact with the space-track.org interface of your preference, via crontab (on a daily/weekly/monthly basis), and store/sync the data locally for post-processing via database or (key/value) datastore. Many of the API request return very large (static) datasets, which do not change frequently, so local data caching is highly suggested.
+Ideally, you should be able to create scripts to interact with the space-track.org interface of your preference, via crontab (on a daily/weekly/monthly basis), and store/sync the data locally for post-processing via database or (key/value) datastore. Many of the API requests return very large (static) datasets, which do not change frequently, so local data caching is highly suggested.
 
 This project is considered experimental, and is intended for authorized users of the space-track.org web service (only). 
 
