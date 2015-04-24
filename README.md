@@ -11,8 +11,10 @@ Ideally, you should be able to create scripts to interact with the space-track.o
 
 This project is considered experimental, and is intended for authorized users of the space-track.org web service (only). 
 
-requirements:
+Requirements:
 ===
+
+* Linux-based Operating System
 * PHP v5.0 or higher
 * PHP compiled w/ CURL extension support
 * An authorized user account on space-track.org
