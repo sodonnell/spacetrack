@@ -1,15 +1,17 @@
 #!/usr/bin/env php
 <?php
-/** simple spacetrack API client script example using PHP/CLI scripting */
-require 'spacetrack.php';
+include_once '../vendor/autoload.php';
+require 'config.php';
 
-$spacetrack = spacetrack::getInstance();
+use SpaceTrack;
 
-$api='boxscore';
-$postdata=null;
-$decode=false;
+$spacetrack = new SpaceTrack($credentials,$cookie);
 
-$req_data = $spacetrack->api_call($api,$postdata,$decode);
+$api='boxscore'; // define the API endpoint key per endpoints.json config.
+$postdata=null; // leave null if GET request
+$decode=false; // decode JSON?
+
+$req_data = $spacetrack->httpRequest($api,$postdata,$decode);
 
 print $req_data;
 
