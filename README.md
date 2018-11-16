@@ -27,7 +27,7 @@ Installation:
 ===
 
 ```
-composer require sodonnell/spacetrack
+composer require "sodonnell/spacetrack":"@dev"
 ```
 
 FAQ:
