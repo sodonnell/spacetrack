@@ -1,0 +1,17 @@
+{
+  "announcement": "basicspacedata/query/class/announcement",
+  "auth": "auth/login",
+  "boxscore": "basicspacedata/query/class/boxscore",
+  "csm": "basicspacedata/query/class/csm",
+  "decay": "basicspacedata/query/class/decay",
+  "launch_site": "basicspacedata/query/class/launch_site",
+  "omm": "basicspacedata/query/class/omm",
+  "organization": "basicspacedata/query/class/organization",
+  "satcat": "basicspacedata/query/class/satcat",
+  "satcat_change": "basicspacedata/query/class/satcat_change",
+  "satcat_debut": "basicspacedata/query/class/satcat_debut",
+  "tip": "basicspacedata/query/class/tip",
+  "tle": "basicspacedata/query/class/tle",
+  "tle_latest": "basicspacedata/query/class/tle_latest",
+  "tle_publish": "basicspacedata/query/class/tle_publish",
+}
