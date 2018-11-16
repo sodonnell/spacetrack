@@ -1,5 +1,5 @@
 {
-  "name": "spacetrack/spacetrack",
+  "name": "sodonnell/spacetrack",
   "description": "Simple Space-Track.org API Client written in PHP.",
   "type": "library",
   "keywords" : ["SpaceTrack", "API"],
@@ -18,7 +18,7 @@
   },
   "autoload": {
     "psr-4": {
-      "SpaceTrack": "src/"
+      "SOD\SpaceTrack": "src/"
     }
   }
 }

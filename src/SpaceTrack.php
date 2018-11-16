@@ -1,6 +1,6 @@
 <?php
 
-namespace SpaceTrack;
+namespace SOD\SpaceTrack;
 /**
  * @filename spacetrack.php
  *
