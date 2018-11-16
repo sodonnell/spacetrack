@@ -23,6 +23,12 @@ Requirements:
 
 This code has not been tested in a non-linux system environment.
 
+Installation:
+===
+
+```
+composer install sodonnell/spacetrack
+```
 
 FAQ:
 ===
