@@ -1,0 +1,23 @@
+{
+  "name": "sodonnell/spacetrack",
+  "description": "Simple Space-Track.org API Client written in PHP.",
+  "type": "library",
+  "keywords" : ["SpaceTrack", "API"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sean O'Donnell",
+      "email": "sean@seanodonnell.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.0.0",
+    "guzzlehttp/guzzle": "~6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "SODonnell\\SpaceTrack\\": "src/"
+    }
+  }
+}
