@@ -274,7 +274,7 @@ class SpaceTrack
 
 	private static function isJSON(string $response)
 	{
-		self::$response_decoded = json_decode($response);
+		self::$response_decoded = json_decode($response,true);
 		return (json_last_error() == JSON_ERROR_NONE);
 	}
 
