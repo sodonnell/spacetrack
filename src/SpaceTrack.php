@@ -85,7 +85,7 @@ class SpaceTrack
 		}
 	}
 
-	public function init(array $credentials, string $cookie)
+	public static function init(array $credentials, string $cookie)
 	{
 		if (!isset($credentials['username']) || !isset($credentials['password']))
 		{
@@ -112,7 +112,7 @@ class SpaceTrack
 		}
 	}
 
-	private function getEndpoints(string $file=null)
+	private static function getEndpoints(string $file=null)
 	{
 		try
 		{
@@ -125,18 +125,93 @@ class SpaceTrack
 		}
 	}
 
-	private function setCredentials(array $credentials)
+	private static function setCredentials(array $credentials)
 	{
 		self::$username = $credentials['username'];
 		self::$password = $credentials['password'];
 	}
 
-	private function setCookie(string $path='/tmp/spacetrack_cookie.txt')
+	private static function setCookie(string $path='/tmp/spacetrack_cookie.txt')
 	{
 		self::$cookie = $path;
 	}
 
-	public function httpRequest(string $api_key,string $postdata=null,bool $decode=true)
+	public static function getAnnouncement($decode=false)
+	{
+		return self::httpRequest('announcement',null,$decode);
+	}
+
+	public static function getBoxScore(($decode=false)
+	{
+		return self::httpRequest('boxscore',null,$decode);
+	}
+
+	public static function getCSM(($decode=false) 
+	{
+		return self::httpRequest('csm',null,$decode);
+	}
+
+	public static function getDecay($decode=false) 
+	{
+		return self::httpRequest('decay',null,$decode);
+	}
+
+	public static function getLaunchSite(($decode=false) 
+	{
+		return self::httpRequest('launch_site',null,$decode);
+	}
+
+	public static function getOMM(($decode=false) 
+	{
+		return self::httpRequest('omm',null,$decode);
+	}
+
+	public static function getCSM(($decode=false) 
+	{
+		return self::httpRequest('csm',null,$decode);
+	}
+
+	public static function getOrganization(($decode=false) 
+	{
+		return self::httpRequest('organization',null,$decode);
+	}
+
+	public static function getSatCat(($decode=false) 
+	{
+		return self::httpRequest('satcat',null,$decode);
+	}
+
+	public static function getSatCatChange(($decode=false) 
+	{
+		return self::httpRequest('satcat_change',null,$decode);
+	}
+
+	public static function getSatCatDebut(($decode=false) 
+	{
+		return self::httpRequest('satcat_debut',null,$decode);
+	}
+
+	public static function getTip(($decode=false) 
+	{
+		return self::httpRequest('tip',null,$decode);
+	}
+
+	public static function getTLE(($decode=false) 
+	{
+		return self::httpRequest('tle',null,$decode);
+	}
+
+	public static function getTLELatest(($decode=false) 
+	{
+		return self::httpRequest('tle_latest',null,$decode);
+	}
+
+	public static function getTLEPublish(($decode=false) 
+	{
+		return self::httpRequest('tle_publish',null,$decode);
+	}
+
+	public static function httpRequest(string $api_key,string $postdata=null,bool $decode=true)
 	{
 		if (isset(self::$api[$api_key]))
 		{
@@ -197,9 +272,9 @@ class SpaceTrack
 		}
 	}
 
-	private function isJSON(string $response)
+	private static function isJSON(string $response)
 	{
-		self::$response_decoded = json_decode($response);
+		self::$response_decoded = json_decode($response,true);
 		return (json_last_error() == JSON_ERROR_NONE);
 	}
 
