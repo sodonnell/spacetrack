@@ -1,7 +1,7 @@
 spacetrack
 ===
 
-**A generic REST/JSON API client for the space-track.org web service, written in PHP.**
+**A generic REST/JSON API client for the [space-track.org](https://www.space-track.org/) web service, written in PHP.**
 
 The design concept for this class is to create a universal (PHP) object specifically to interact with all of the space-track.org API services, with as minimal code as possible. 
 
