@@ -2,14 +2,14 @@
 <?php
 /** simple spacetrack API client script example using PHP/CLI scripting */
 require 'spacetrack.php';
+require 'config.php';
 
-$spacetrack = spacetrack::getInstance();
+$spacetrack = new SpaceTrack($credentials,$cookie);
 
 $api='launch_site';
 $postdata=null;
 $decode=false;
 
-$req_data = $spacetrack->api_call($api,$postdata,$decode);
+$req_data = $spacetrack->httpRequest($api,$postdata,$decode);
 
 print $req_data;
-
