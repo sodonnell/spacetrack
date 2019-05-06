@@ -7,10 +7,10 @@ use SpaceTrack;
 
 SpaceTrack::init($credentials,$cookie);
 
-$api='boxscore'; // define the API endpoint key per endpoints.json config.
+$endpoint='boxscore'; // define the API endpoint key per endpoints.json config.
 $postdata=null; // leave null if GET request
 $decode=false; // decode JSON?
 
-$req_data = SpaceTrack::httpRequest($api,$postdata,$decode);
+$req_data = SpaceTrack::httpRequest($endpoint,$postdata,$decode);
 
 print $req_data;

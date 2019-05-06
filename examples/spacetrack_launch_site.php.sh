@@ -3,12 +3,14 @@
 require '../vendor/autoload.php';
 require 'config.php';
 
+use SpaceTrack;
+
 SpaceTrack::init($credentials,$cookie);
 
-$api='launch_site';
+$endpoint='launch_site';
 $postdata=null;
 $decode=false;
 
-$req_data = SpaceTrack::httpRequest($api,$postdata,$decode);
+$req_data = SpaceTrack::httpRequest($endpoint,$postdata,$decode);
 
 print $req_data;
