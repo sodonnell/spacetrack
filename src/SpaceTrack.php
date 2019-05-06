@@ -23,8 +23,7 @@ class SpaceTrack
 	*
 	* @var array
 	*/
-	private $api
-
+	private $api;
 	/**
 	* The CURL instance resource identifier.
 	* Yes, this library uses CURL. Bandwidth-throttling and guzzle...? suck it!
@@ -61,7 +60,7 @@ class SpaceTrack
 	*
 	* @var string
 	*/
-	private $endpoints
+	private $endpoints;
 
 	/**
 	* Base URL for all API Endpoints
@@ -71,26 +70,25 @@ class SpaceTrack
 	*/
 	private $base_url = 'https://www.space-track.org/';
 
-	public function __construct($credentials,$cookie)
+	public function __construct()
 	{
 		if (!function_exists('curl_init'))
 		{
 			throw new Exception('Missing function: curl_init(). The curl PHP extension is required for the SOD\SpaceTrack Composer Package.');
 		}
+	}
 
+	private function init($credentials,$cookie)
+	{
 		if (!isset($credentials['username']) || !isset($credentials['password']))
 		{
 			throw new Exception('SpaceTrack: Missing required parameters: username & password');
 		}
 
-		$this->setCredentials($credentials);
 		$this->getEndpoints($this->endpoints_file);
+		$this->setCredentials($credentials);
 		$this->setCookie($cookie);
-		$this->init();
-	}
 
-	private function init()
-	{
 		$this->curl = curl_init();
 
 		$this->api = json_decode($this->endpoints,true);
@@ -107,7 +105,7 @@ class SpaceTrack
 		}
 	}
 
-	public function getEndpoints($file=null)
+	private function getEndpoints($file=null)
 	{
 		try
 		{
@@ -166,12 +164,12 @@ class SpaceTrack
 
 		try
 		{
-            		// execute HTTP request/response procedure
-            		$response = curl_exec($this->curl);
+			// execute HTTP request/response procedure
+			$response = curl_exec($this->curl);
 		}
 		catch(Exception $e)
 		{
-            		throw new Exception("[spacetrack] httpResponse Exception: ". $e->getMessage(), E_USER_WARNING);
+			throw new Exception("[spacetrack] httpResponse Exception: ". $e->getMessage(), E_USER_WARNING);
 		}
 
 		if (isset($response) && strlen($response) > 0)

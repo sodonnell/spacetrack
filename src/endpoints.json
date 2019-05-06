@@ -13,5 +13,5 @@
   "tip": "basicspacedata/query/class/tip",
   "tle": "basicspacedata/query/class/tle",
   "tle_latest": "basicspacedata/query/class/tle_latest",
-  "tle_publish": "basicspacedata/query/class/tle_publish",
+  "tle_publish": "basicspacedata/query/class/tle_publish"
 }
