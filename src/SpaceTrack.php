@@ -138,7 +138,6 @@ class SpaceTrack
 
 	public function httpRequest(string $api_key,string $postdata=null,bool $decode=true)
 	{
-		print self::$api[$api_key];
 		if (isset(self::$api[$api_key]))
 		{
 			curl_setopt(self::$curl, CURLOPT_URL, self::$base_url . self::$api[$api_key]);
