@@ -146,7 +146,7 @@ class SpaceTrack
 		return self::httpRequest('boxscore',null,$decode);
 	}
 
-	public static function getCSM(($decode=false) 
+	public static function getCSM($decode=false) 
 	{
 		return self::httpRequest('csm',null,$decode);
 	}
@@ -156,57 +156,57 @@ class SpaceTrack
 		return self::httpRequest('decay',null,$decode);
 	}
 
-	public static function getLaunchSite(($decode=false) 
+	public static function getLaunchSite($decode=false) 
 	{
 		return self::httpRequest('launch_site',null,$decode);
 	}
 
-	public static function getOMM(($decode=false) 
+	public static function getOMM($decode=false) 
 	{
 		return self::httpRequest('omm',null,$decode);
 	}
 
-	public static function getCSM(($decode=false) 
+	public static function getCSM($decode=false) 
 	{
 		return self::httpRequest('csm',null,$decode);
 	}
 
-	public static function getOrganization(($decode=false) 
+	public static function getOrganization($decode=false) 
 	{
 		return self::httpRequest('organization',null,$decode);
 	}
 
-	public static function getSatCat(($decode=false) 
+	public static function getSatCat($decode=false) 
 	{
 		return self::httpRequest('satcat',null,$decode);
 	}
 
-	public static function getSatCatChange(($decode=false) 
+	public static function getSatCatChange($decode=false) 
 	{
 		return self::httpRequest('satcat_change',null,$decode);
 	}
 
-	public static function getSatCatDebut(($decode=false) 
+	public static function getSatCatDebut($decode=false) 
 	{
 		return self::httpRequest('satcat_debut',null,$decode);
 	}
 
-	public static function getTip(($decode=false) 
+	public static function getTip($decode=false) 
 	{
 		return self::httpRequest('tip',null,$decode);
 	}
 
-	public static function getTLE(($decode=false) 
+	public static function getTLE($decode=false) 
 	{
 		return self::httpRequest('tle',null,$decode);
 	}
 
-	public static function getTLELatest(($decode=false) 
+	public static function getTLELatest($decode=false) 
 	{
 		return self::httpRequest('tle_latest',null,$decode);
 	}
 
-	public static function getTLEPublish(($decode=false) 
+	public static function getTLEPublish($decode=false) 
 	{
 		return self::httpRequest('tle_publish',null,$decode);
 	}
