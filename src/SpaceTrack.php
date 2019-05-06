@@ -141,7 +141,7 @@ class SpaceTrack
 		return self::httpRequest('announcement',null,$decode);
 	}
 
-	public static function getBoxScore(($decode=false)
+	public static function getBoxScore($decode=false)
 	{
 		return self::httpRequest('boxscore',null,$decode);
 	}
