@@ -24,6 +24,7 @@ class SpaceTrack
 	* @var array
 	*/
 	private $api;
+
 	/**
 	* The CURL instance resource identifier.
 	* Yes, this library uses CURL. Bandwidth-throttling and guzzle...? suck it!
@@ -78,7 +79,7 @@ class SpaceTrack
 		}
 	}
 
-	private function init($credentials,$cookie)
+	public function init($credentials,$cookie)
 	{
 		if (!isset($credentials['username']) || !isset($credentials['password']))
 		{
