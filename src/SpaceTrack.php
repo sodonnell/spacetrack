@@ -150,7 +150,7 @@ class SpaceTrack
 		}
 		else
 		{
-            throw new Exception("Invalid API Key Requested: ". $apikey ." (undefined)");
+			throw new Exception("Invalid API Key Requested: ". $apikey ." (undefined)");
 		}
 	}
 
