@@ -1,6 +1,6 @@
 {
   "announcement": "basicspacedata/query/class/announcement",
-  "auth": "auth/login",
+  "auth": "ajaxauth/login",
   "boxscore": "basicspacedata/query/class/boxscore",
   "csm": "basicspacedata/query/class/csm",
   "decay": "basicspacedata/query/class/decay",
