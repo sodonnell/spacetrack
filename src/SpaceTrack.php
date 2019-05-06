@@ -166,11 +166,6 @@ class SpaceTrack
 		return self::httpRequest('omm',null,$decode);
 	}
 
-	public static function getCSM($decode=false) 
-	{
-		return self::httpRequest('csm',null,$decode);
-	}
-
 	public static function getOrganization($decode=false) 
 	{
 		return self::httpRequest('organization',null,$decode);
