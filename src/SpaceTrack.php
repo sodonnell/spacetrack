@@ -18,97 +18,118 @@ namespace SOD\SpaceTrack;
  */
 class SpaceTrack
 {
-    /**
-    * The API endpoint URL array created via endpoints.json.
-    *
-    * @var array
-    */
-    private $api;
+	/**
+	* The API endpoint URL array created via endpoints.json.
+	*
+	* @var array
+	*/
+	private $api
 
-    /**
-    * The CURL instance resource identifier.
-    * Yes, this library uses CURL. Bandwidth-throttling and guzzle...? suck it!
-    *
-    * @var resource
-    */
-    private $curl;
+	/**
+	* The CURL instance resource identifier.
+	* Yes, this library uses CURL. Bandwidth-throttling and guzzle...? suck it!
+	*
+	* @var resource
+	*/
+	private $curl;
 
-    /**
-    * The API Response decoded from JSON
-    *
-    * @var string
-    */
-    private $response_decoded;
+	/**
+	* The API Response decoded from JSON
+	*
+	* @var string
+	*/
+	private $response_decoded;
 
-    /**
-    * Path to the cookie.
-    * Default: /tmp/spacetrack_cookie.txt
-    *
-    * @var string
-    */
-    private $cookie;
+	/**
+	* Path to the cookie.
+	* Default: /tmp/spacetrack_cookie.txt
+	*
+	* @var string
+	*/
+	private $cookie;
 
-    /**
-    * Path to the API Endpoints Config File.
-    * Default: endpoints.json
-    *
-    * @var string
-    */
-    private $endpoints = 'endpoints.json';
+	/**
+	* JSON File containing API endpoints
+	* Default: endpoints.json
+	*
+	* @var string 
+	*/
+	private $endpoints_file = 'endpoints.json';
 
-    /**
-    * Base URL for all API Endpoints
-    * Default: https://www.space-track.org/
-    *
-    * @var string
-    */
-    private $base_url = 'https://www.space-track.org/';
+	/**
+	* JSON String parsed from $endpoints_file
+	*
+	* @var string
+	*/
+	private $endpoints
 
-    public function __construct($credentials,$cookie)
-    {
-        if (!function_exists('curl_init'))
-        {
-            throw new Exception('Missing function: curl_init(). The curl PHP extension is required for the SOD\SpaceTrack Composer Package.');
-        }
+	/**
+	* Base URL for all API Endpoints
+	* Default: https://www.space-track.org/
+	*
+	* @var string
+	*/
+	private $base_url = 'https://www.space-track.org/';
 
-        if (!isset($credentials['username']) || !isset($credentials['password']))
-        {
-            throw new Exception('SpaceTrack: Missing required parameters: username & password');
-        }
+	public function __construct($credentials,$cookie)
+	{
+		if (!function_exists('curl_init'))
+		{
+			throw new Exception('Missing function: curl_init(). The curl PHP extension is required for the SOD\SpaceTrack Composer Package.');
+		}
 
-        $this->setCredentials($credentials);
-        $this->setCookie($cookie);
-        $this->init();
-    }
+		if (!isset($credentials['username']) || !isset($credentials['password']))
+		{
+			throw new Exception('SpaceTrack: Missing required parameters: username & password');
+		}
 
-    private function init()
-    {
-        $this->curl = curl_init();
+		$this->setCredentials($credentials);
+		$this->getEndpoints($this->endpoints_file);
+		$this->setCookie($cookie);
+		$this->init();
+	}
 
-        $this->api = json_decode($this->endpoints,true);
+	private function init()
+	{
+		$this->curl = curl_init();
 
-        $auth_data = "identity=".$this->username."&password=". $this->password;
+		$this->api = json_decode($this->endpoints,true);
 
-        try
-        {
-            $this->httpRequest('auth',$auth_data,false);
-        }
-        catch (Exception $e)
-        {
-            throw new Exception("[spacetrack] User Authentication Exception: ". $e->getMessage(), E_USER_ERROR);
-        }
-    }
+		$auth_data = "identity=".$this->username."&password=". $this->password;
 
-    private function setCredentials($credentials)
-    {
-        $this->username = $credentials['username'];
-        $this->password = $credentials['password'];
-    }
+		try
+		{
+			$this->httpRequest('auth',$auth_data,false);
+		}
+		catch (Exception $e)
+		{
+			throw new Exception("[spacetrack] User Authentication Exception: ". $e->getMessage(), E_USER_ERROR);
+		}
+	}
 
-    private function setCookie($path='/tmp/spacetrack_cookie.txt')
-    {
-        $this->cookie = $path;
-    }
+	public function getEndpoints($file=null)
+	{
+		try
+		{
+			$endpoints = file_get_contents($file);
+			$this->api = json_decode($endpoints,true);
+		}
+		catch (Exception $e)
+		{
+			throw new Exception("[spacetrack] File Read Exception: ". $e->getMessage(), E_USER_ERROR);
+		}
+	}
+
+	private function setCredentials($credentials)
+	{
+		$this->username = $credentials['username'];
+		$this->password = $credentials['password'];
+	}
+
+	private function setCookie($path='/tmp/spacetrack_cookie.txt')
+	{
+		$this->cookie = $path;
+	}
 
 	public function httpRequest($api_key,$postdata=null,$decode=true)
 	{
@@ -145,12 +166,12 @@ class SpaceTrack
 
 		try
 		{
-            // execute HTTP request/response procedure
-            $response = curl_exec($this->curl);
+            		// execute HTTP request/response procedure
+            		$response = curl_exec($this->curl);
 		}
 		catch(Exception $e)
 		{
-            throw new Exception("[spacetrack] httpResponse Exception: ". $e->getMessage(), E_USER_WARNING);
+            		throw new Exception("[spacetrack] httpResponse Exception: ". $e->getMessage(), E_USER_WARNING);
 		}
 
 		if (isset($response) && strlen($response) > 0)
