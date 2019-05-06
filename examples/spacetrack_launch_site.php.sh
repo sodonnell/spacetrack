@@ -1,15 +1,15 @@
 #!/usr/bin/env php
 <?php
-require '../vendor/autoload.php';
-require 'config.php';
+require './config.php';
+require './vendor/autoload.php';
 
-use SpaceTrack;
+use SpaceTrack\SpaceTrack;
 
 SpaceTrack::init($credentials,$cookie);
 
-$endpoint='launch_site';
-$postdata=null;
-$decode=false;
+$endpoint='launch_site'; // define the API endpoint key per endpoints.json config.
+$postdata=null; // leave null if GET request
+$decode=false; // decode JSON?
 
 $req_data = SpaceTrack::httpRequest($endpoint,$postdata,$decode);
 

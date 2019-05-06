@@ -1,6 +1,6 @@
 <?php
 
-namespace SOD\SpaceTrack;
+namespace SpaceTrack;
 /**
  * @filename spacetrack.php
  *
@@ -23,7 +23,7 @@ class SpaceTrack
 	*
 	* @var array
 	*/
-	private $api;
+	private static $api;
 
 	/**
 	* The CURL instance resource identifier.
@@ -31,14 +31,14 @@ class SpaceTrack
 	*
 	* @var resource
 	*/
-	private $curl;
+	private static $curl;
 
 	/**
 	* The API Response decoded from JSON
 	*
 	* @var string
 	*/
-	private $response_decoded;
+	private static $response_decoded;
 
 	/**
 	* Path to the cookie.
@@ -46,7 +46,7 @@ class SpaceTrack
 	*
 	* @var string
 	*/
-	private $cookie;
+	private static $cookie;
 
 	/**
 	* JSON File containing API endpoints
@@ -54,14 +54,14 @@ class SpaceTrack
 	*
 	* @var string 
 	*/
-	private $endpoints_file = 'endpoints.json';
+	private static $endpoints_file = 'endpoints.json';
 
 	/**
 	* JSON String parsed from $endpoints_file
 	*
 	* @var string
 	*/
-	private $endpoints;
+	private static $endpoints;
 
 	/**
 	* Base URL for all API Endpoints
@@ -69,115 +69,123 @@ class SpaceTrack
 	*
 	* @var string
 	*/
-	private $base_url = 'https://www.space-track.org/';
+	private static $base_url = 'https://www.space-track.org/';
+
+	/**
+	* 
+	*/
+	private static $username;
+	private static $password;
 
 	public function __construct()
 	{
 		if (!function_exists('curl_init'))
 		{
-			throw new Exception('Missing function: curl_init(). The curl PHP extension is required for the SOD\SpaceTrack Composer Package.');
+			throw new \Exception('Missing function: curl_init(). The curl PHP extension is required for the SOD\SpaceTrack Composer Package.');
 		}
 	}
 
-	public function init($credentials,$cookie)
+	public function init(array $credentials, string $cookie)
 	{
 		if (!isset($credentials['username']) || !isset($credentials['password']))
 		{
-			throw new Exception('SpaceTrack: Missing required parameters: username & password');
+			throw new \Exception('SpaceTrack: Missing required parameters: username & password');
 		}
 
-		$this->getEndpoints($this->endpoints_file);
-		$this->setCredentials($credentials);
-		$this->setCookie($cookie);
+		self::getEndpoints(__DIR__.'/'.self::$endpoints_file);
+		self::setCredentials($credentials);
+		self::setCookie($cookie);
 
-		$this->curl = curl_init();
+		self::$curl = curl_init();
 
-		$this->api = json_decode($this->endpoints,true);
+		//$self::$api = json_decode(self::$endpoints,true);
 
-		$auth_data = "identity=".$this->username."&password=". $this->password;
-
+		$auth_data = "identity=".self::$username."&password=". self::$password;
+		// print $auth_data; die();
 		try
 		{
-			$this->httpRequest('auth',$auth_data,false);
+			self::httpRequest('auth',$auth_data,false);
 		}
 		catch (Exception $e)
 		{
-			throw new Exception("[spacetrack] User Authentication Exception: ". $e->getMessage(), E_USER_ERROR);
+			throw new \Exception("[spacetrack] User Authentication Exception: ". $e->getMessage(), E_USER_ERROR);
 		}
 	}
 
-	private function getEndpoints($file=null)
+	private function getEndpoints(string $file=null)
 	{
 		try
 		{
-			$endpoints = file_get_contents($file);
-			$this->api = json_decode($endpoints,true);
+			self::$endpoints = file_get_contents($file);
+			self::$api = json_decode(self::$endpoints,true);
 		}
 		catch (Exception $e)
 		{
-			throw new Exception("[spacetrack] File Read Exception: ". $e->getMessage(), E_USER_ERROR);
+			throw new \Exception("[spacetrack] File Read Exception: ". $e->getMessage(), E_USER_ERROR);
 		}
 	}
 
-	private function setCredentials($credentials)
+	private function setCredentials(array $credentials)
 	{
-		$this->username = $credentials['username'];
-		$this->password = $credentials['password'];
+		self::$username = $credentials['username'];
+		self::$password = $credentials['password'];
 	}
 
-	private function setCookie($path='/tmp/spacetrack_cookie.txt')
+	private function setCookie(string $path='/tmp/spacetrack_cookie.txt')
 	{
-		$this->cookie = $path;
+		self::$cookie = $path;
 	}
 
-	public function httpRequest($api_key,$postdata=null,$decode=true)
+	public function httpRequest(string $api_key,string $postdata=null,bool $decode=true)
 	{
-		if (isset($this->api[$api_key]))
+		print self::$api[$api_key];
+		if (isset(self::$api[$api_key]))
 		{
-			curl_setopt($this->curl, CURLOPT_URL, $this->base_url . $this->api[$api_key]);
+			curl_setopt(self::$curl, CURLOPT_URL, self::$base_url . self::$api[$api_key]);
 
 			if (!is_null($postdata))
 			{
-				curl_setopt($this->curl, CURLOPT_POST,1);
-				curl_setopt($this->curl, CURLOPT_POSTFIELDS, $postdata);
+				curl_setopt(self::$curl, CURLOPT_POST,TRUE);
+				curl_setopt(self::$curl, CURLOPT_POSTFIELDS, $postdata);
 			}
 			else
 			{
-				curl_setopt($this->curl, CURLOPT_POST,0);
+				curl_setopt(self::$curl, CURLOPT_POST,0);
 			}
-			return $this->httpResponse($decode);
+			return self::httpResponse($decode);
 		}
 		else
 		{
-			throw new Exception("Invalid API Key Requested: ". $apikey ." (undefined)");
+			throw new \Exception("Invalid API Key Requested: ". $apikey ." (undefined)");
 		}
 	}
 
-	private function httpResponse($decode=false)
+	private function httpResponse(bool $decode=false)
 	{
 		// use cookies per spec
-		curl_setopt($this->curl, CURLOPT_COOKIEFILE, $this->cookie);
-		curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt(self::$curl, CURLOPT_COOKIESESSION, TRUE);
+		curl_setopt(self::$curl, CURLOPT_COOKIEFILE, self::$cookie);
+		curl_setopt(self::$curl, CURLOPT_RETURNTRANSFER, TRUE);
 
 		// throttle/limit transfer speeds to 100k/sec (max), per spacetrack spec.
-		curl_setopt($this->curl, CURLOPT_MAX_RECV_SPEED_LARGE, 100);
-		curl_setopt($this->curl, CURLOPT_MAX_SEND_SPEED_LARGE, 100);
+		curl_setopt(self::$curl, CURLOPT_MAX_RECV_SPEED_LARGE, 100);
+		curl_setopt(self::$curl, CURLOPT_MAX_SEND_SPEED_LARGE, 100);
 
 		try
 		{
 			// execute HTTP request/response procedure
-			$response = curl_exec($this->curl);
+			$response = curl_exec(self::$curl);
 		}
 		catch(Exception $e)
 		{
-			throw new Exception("[spacetrack] httpResponse Exception: ". $e->getMessage(), E_USER_WARNING);
+			throw new \Exception("[spacetrack] httpResponse Exception: ". $e->getMessage(), E_USER_WARNING);
 		}
 
 		if (isset($response) && strlen($response) > 0)
 		{
-			if ($decode && $this->isJSON($response))
+			if ($decode && self::isJSON($response))
 			{
-				return $this->response_decoded;
+				return self::$response_decoded;
 			}
 			else
 			{
@@ -190,17 +198,18 @@ class SpaceTrack
 		}
 	}
 
-	private function isJSON($response)
+	private function isJSON(string $response)
 	{
-		$this->response_decoded = json_decode($response);
+		self::$response_decoded = json_decode($response);
 		return (json_last_error() == JSON_ERROR_NONE);
 	}
 
 	private function __destruct()
 	{
-		if (isset($this->curl))
+		if (isset(self::$curl))
 		{
-			curl_close($this->curl);
+			curl_close(self::$curl);
 		}
 	}
 }
+

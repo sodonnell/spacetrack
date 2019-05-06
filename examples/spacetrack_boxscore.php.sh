@@ -1,9 +1,9 @@
 #!/usr/bin/env php
 <?php
-require '../vendor/autoload.php';
-require 'config.php';
+require './config.php';
+require './vendor/autoload.php';
 
-use SpaceTrack;
+use SpaceTrack\SpaceTrack;
 
 SpaceTrack::init($credentials,$cookie);
 
