@@ -28,7 +28,7 @@ Installation:
 composer require "sodonnell/spacetrack"
 ```
 
-Basic Usage Example:
+Usage Example:
 ===
 ```
 <?php
@@ -36,17 +36,37 @@ require './vendor/autoload.php';
 
 $credentials = [
     'username'=>'???your-username???',
-    'password'=>'??your-password???',
+    'password'=>'???your-password???',
 ];
 
 $cookie = '/tmp/spacetrack.cookie.txt';
 
 use SpaceTrack\SpaceTrack;
 
-SpaceTrack::init($credentials,$cookie);
+* SpaceTrack::init($credentials,$cookie);
 
 // optional parameter: decode JSON to PHP Array?
 $decode=true; 
-$response = SpaceTrack::getLaunchSite($decode);
+$response = * SpaceTrack::getLaunchSite($decode);
 
 print_r($response);
+```
+
+Public Function:
+===
+
+* SpaceTrack::init(array $credentials, string $cookie)
+* SpaceTrack::getAnnouncement($decode=false)
+* SpaceTrack::getBoxScore($decode=false)
+* SpaceTrack::getCSM($decode=false)
+* SpaceTrack::getDecay($decode=false)
+* SpaceTrack::getLaunchSite($decode=false)
+* SpaceTrack::getOMM($decode=false)
+* SpaceTrack::getOrganization($decode=false)
+* SpaceTrack::getSatCat($decode=false)
+* SpaceTrack::getSatCatChange($decode=false)
+* SpaceTrack::getSatCatDebut($decode=false)
+* SpaceTrack::getTip($decode=false)
+* SpaceTrack::getTLE($decode=false)
+* SpaceTrack::getTLELatest($decode=false)
+* SpaceTrack::getTLEPublish($decode=false)
