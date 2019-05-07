@@ -49,4 +49,4 @@ SpaceTrack::init($credentials,$cookie);
 $decode=true; 
 $response = SpaceTrack::getLaunchSite($decode);
 
-print $response;
+print_r($response);

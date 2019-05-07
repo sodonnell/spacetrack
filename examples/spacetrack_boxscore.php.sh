@@ -1,16 +1,20 @@
 #!/usr/bin/env php
 <?php
-require './config.php';
 require './vendor/autoload.php';
 
 use SpaceTrack\SpaceTrack;
 
+$credentials = [
+    'username'=>'',
+    'password'=>''
+];
+
+$cookie = '/tmp/spacetrack.cookie.txt';
+
 SpaceTrack::init($credentials,$cookie);
 
-$endpoint='boxscore'; // define the API endpoint key per endpoints.json config.
-$postdata=null; // leave null if GET request
-$decode=false; // decode JSON?
+$decode=false; // decode JSON to PHP Array?
 
-$req_data = SpaceTrack::httpRequest($endpoint,$postdata,$decode);
+$response = SpaceTrack::getBoxScore($decode);
 
-print $req_data;
+print $response;
