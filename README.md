@@ -43,11 +43,11 @@ $cookie = '/tmp/spacetrack.cookie.txt';
 
 use SpaceTrack\SpaceTrack;
 
-* SpaceTrack::init($credentials,$cookie);
+SpaceTrack::init($credentials,$cookie);
 
 // optional parameter: decode JSON to PHP Array?
 $decode=true; 
-$response = * SpaceTrack::getLaunchSite($decode);
+$response = SpaceTrack::getLaunchSite($decode);
 
 print_r($response);
 ```
