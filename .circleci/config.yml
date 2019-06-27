@@ -5,10 +5,6 @@ jobs:
       - image: circleci/php:7.2.19-fpm
     working_directory: ~/spacetrack
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "2c:8d:a5:e2:17:44:d6:ac:0f:64:c1:56:53:29:f2:7f"
       - run: sudo apt-get update && sudo apt-get install -y ansible
       - checkout
       - run: cd ~/spacetrack && composer install
-
